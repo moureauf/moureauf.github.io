@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+  </head>
+<body>
+<h2>
+      <br/><br/><br/><br/><br/>
+      Belgian breweries
+</h2>
+<h3>
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+  ABV<br/>
+  <svg width="20" height="20">
+  <rect width="20" height="20"  style="fill:rgb(255,255,230);stroke-width:1;stroke:rgb(0,0,0)" /> 
+</svg>
+<3 %
+<br>
+<svg width="20" height="20">
+  <rect width="20" height="20" style="fill:rgb(255,255,51);stroke-width:1;stroke:rgb(0,0,0)" /> 
+</svg>
+3 - 5 %
+<br>
+<svg width="20" height="20">
+  <rect width="20" height="20" style="fill:rgb(230,230,0);stroke-width:1;stroke:rgb(0,0,0)" /> 
+</svg>
+5 - 7 %
+<br>
+<svg width="20" height="20">
+  <rect width="20" height="20" style="fill:rgb(178,178,0);stroke-width:1;stroke:rgb(0,0,0)" /> 
+</svg>
+7 - 9 %
+<br>
+<svg width="20" height="20">
+  <rect width="20" height="20" style="fill:rgb(102,102,0);stroke-width:1;stroke:rgb(0,0,0)" /> 
+</svg>
+9 - 11 %
+<br>
+<svg width="20" height="20">
+  <rect width="20" height="20" style="fill:rgb(26,26,0);stroke-width:1;stroke:rgb(0,0,0)" /> 
+</svg>
+> 11%
+</h3>
+<script src="d3/d3.js"></script>
+<script>
+var margin = 20,
+    diameter = 700;
+var color = d3.scale.linear()
+    .domain([-1, 5])
+    .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+    .interpolate(d3.interpolateHcl);
+var pack = d3.layout.pack()
+    .padding(2)
+    .size([diameter - margin, diameter - margin])
+    .value(function(d) { return d.size; })
+var svg = d3.select("body").append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter)
+  .append("g")
+    .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+var div = d3.select("body").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
+d3.json("data.json", function(error, root) {
+  if (error) return console.error(error);
+  var focus = root,
+      nodes = pack.nodes(root),
+      view;
+  var circle = svg.selectAll("circle")
+      .data(nodes)
+    .enter().append("circle")
+      .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
+.style("fill", function(d){ 
+  if(d.children) {return color(d.depth) }
+  else if (d.ABV <= 3){ return "#FFFFE6"}
+  else if (d.ABV <= 5){ return "#FFFF33"}
+  else if (d.ABV <= 7){ return "#E6E600"}
+  else if (d.ABV <= 9){ return "#B2B200"}
+  else if (d.ABV <= 11){ return "#666600"}
+  else {return "#1A1A00"}
+;})
+      .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); })
+      .on("mouseover", function(d) {      
+            div.transition()        
+                .duration(200)      
+                .style("opacity", .9)
+                //.style("left", (d3.event.pageX) + "px")     
+                //.style("top", (d3.event.pageX) + "px");
+            if(d.children) {
+              div .html(d.name + "<br/>" + d.children.length + " beers")
+                
+            }
+            else  if(d.type2 == null && d.type3 == null) {
+              div .html(d.name + "<br/>" + d.brewery + "<br/>" + d.ABV + "%" + "<br/>" + d.type1)
+            }
+            else  if(d.type2 != null && d.type3 == null) {
+              div .html(d.name + "<br/>" + d.brewery + "<br/>" + d.ABV + "%" + "<br/>" + d.type1 + ", " + d.type2)
+            }
+            else  if(d.type2 != null && d.type3 != null) {
+              div .html(d.name + "<br/>" + d.brewery + "<br/>" + d.ABV + "%" + "<br/>" + d.type1 + ", " + d.type2 + ", " + d.type3)
+            }
+            ;}) 
+                              
+        .on("mouseout", function(d) {       
+            div.transition()        
+                .duration(500)      
+                .style("opacity", 0); });
+  var text = svg.selectAll("text")
+      .data(nodes)
+    .enter().append("text")
+      .attr("class", "label")
+      .style("fill-opacity", function(d) { return d.parent === root ? 1 : 0; })
+      .style("display", function(d) { return d.parent === root ? null : "none"; })
+    //  .text(function(d) { return d.name; });
+    
+  var node = svg.selectAll("circle,text");
+  d3.select("body")
+      .style("background", color(-1))
+      .on("click", function() { zoom(root); });
+  zoomTo([root.x, root.y, root.r * 2 + margin]);
+  function zoom(d) {
+    var focus0 = focus; focus = d;
+    var transition = d3.transition()
+        .duration(d3.event.altKey ? 7500 : 750)
+        .tween("zoom", function(d) {
+          var i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2 + margin]);
+          return function(t) { zoomTo(i(t)); };
+        });
+    transition.selectAll("text")
+      .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
+        .style("fill-opacity", function(d) { return d.parent === focus ? 1 : 0; })
+        .each("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
+        .each("end", function(d) { if (d.parent !== focus) this.style.display = "none"; });
+  }
+  function zoomTo(v) {
+    var k = diameter / v[2]; view = v;
+    node.attr("transform", function(d) { return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")"; });
+    circle.attr("r", function(d) { return d.r * k; });
+  }
+});
+d3.select(self.frameElement).style("height", diameter + "px");
+</script>
