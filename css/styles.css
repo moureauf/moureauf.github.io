@@ -49,8 +49,7 @@ body {
 }
 .wrap { max-width: 62ch; margin: 0 auto; padding: clamp(28px, 6vw, 72px) clamp(20px, 5vw, 40px) 64px; }
 
-.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: clamp(40px, 9vw, 88px); }
-.mark { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.top { display: flex; justify-content: flex-end; align-items: center; margin-bottom: clamp(40px, 9vw, 88px); }
 .toggle {
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
   background: none; border: 1px solid var(--line); color: var(--muted);
