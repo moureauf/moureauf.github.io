@@ -5,10 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Not found · François Moureau</title>
   <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#EEECE4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#16140E" media="(prefers-color-scheme: dark)">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EEECE4'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='22' fill='%23A8431B' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
-  <link rel="preload" href="fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/JetBrainsMono-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/JetBrainsMono-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <div class="wrap">
@@ -25,27 +35,10 @@
     </header>
   </div>
 
-  <script>
-    (function () {
-      var root = document.documentElement;
-      var btn = document.getElementById('themeToggle');
-      var stored = null;
-      try { stored = localStorage.getItem('theme'); } catch (e) {}
-      if (stored === 'dark' || stored === 'light') root.setAttribute('data-theme', stored);
-      btn.addEventListener('click', function () {
-        var cur = root.getAttribute('data-theme');
-        if (!cur) {
-          cur = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-        var next = cur === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        try { localStorage.setItem('theme', next); } catch (e) {}
-      });
-    })();
-  </script>
+  <script src="/js/theme.js" defer></script>
 
   <!-- Cloudflare Web Analytics -->
-  <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7b00be250eb84901b348309d906452bd"}'></script>
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;7b00be250eb84901b348309d906452bd&quot;}"></script>
   <!-- End Cloudflare Web Analytics -->
 </body>
 </html>

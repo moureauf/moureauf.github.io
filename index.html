@@ -10,9 +10,23 @@
   <meta property="og:url" content="https://francoismoureau.com/">
   <meta property="og:title" content="François Moureau">
   <meta property="og:description" content="Software engineer in London. Builds small, sharp developer tools.">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://francoismoureau.com/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="François Moureau">
   <meta name="twitter:description" content="Software engineer in London. Builds small, sharp developer tools.">
+  <meta name="twitter:image" content="https://francoismoureau.com/og.png">
+  <meta name="theme-color" content="#EEECE4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#16140E" media="(prefers-color-scheme: dark)">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EEECE4'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='22' fill='%23A8431B' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
   <link rel="preload" href="fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/JetBrainsMono-Variable.woff2" as="font" type="font/woff2" crossorigin>
@@ -48,8 +62,8 @@
 
       <p class="bio">
         I'm a software engineer working on backend systems at scale. On the side
-        I build the occasional developer tool and write about how I keep my
-        work — and the rest of my life — organised in plain text and git.
+        I build the occasional developer tool and keep my work — and the rest
+        of my life — organised in plain text and git.
       </p>
     </header>
 
@@ -59,7 +73,6 @@
         <dt>based</dt>    <dd>London</dd>
         <dt>work</dt>     <dd>Software engineer</dd>
         <dt>building</dt> <dd><code>boe-mcp</code> + a small family of personal-data MCP servers</dd>
-        <dt>writing</dt>  <dd>coming soon</dd>
       </dl>
     </section>
 
@@ -74,8 +87,6 @@
           <a href="https://github.com/moureauf/boe-mcp">github ↗</a>
         </p>
       </article>
-
-      <p class="more">More MCP servers, and a write-up on running my life on git — coming soon.</p>
     </section>
 
     <footer>
@@ -85,31 +96,13 @@
         <a href="https://www.linkedin.com/in/fmoureau/" rel="me">linkedin</a>
         <a href="https://github.com/moureauf/moureauf.github.io">source</a>
       </nav>
-      <span class="colophon">built plainly · updated Jul 2026</span>
     </footer>
   </div>
 
-  <script>
-    (function () {
-      var root = document.documentElement;
-      var btn = document.getElementById('themeToggle');
-      var stored = null;
-      try { stored = localStorage.getItem('theme'); } catch (e) {}
-      if (stored === 'dark' || stored === 'light') root.setAttribute('data-theme', stored);
-      btn.addEventListener('click', function () {
-        var cur = root.getAttribute('data-theme');
-        if (!cur) {
-          cur = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-        var next = cur === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        try { localStorage.setItem('theme', next); } catch (e) {}
-      });
-    })();
-  </script>
+  <script src="/js/theme.js" defer></script>
 
   <!-- Cloudflare Web Analytics -->
-  <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7b00be250eb84901b348309d906452bd"}'></script>
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;7b00be250eb84901b348309d906452bd&quot;}"></script>
   <!-- End Cloudflare Web Analytics -->
 </body>
 </html>
