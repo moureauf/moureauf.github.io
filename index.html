@@ -4,16 +4,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>François Moureau</title>
-  <meta name="description" content="François Moureau — software engineer in London. Builds small, sharp developer tools.">
+  <meta name="description" content="François Moureau — software engineer in London.">
   <link rel="canonical" href="https://francoismoureau.com/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://francoismoureau.com/">
   <meta property="og:title" content="François Moureau">
-  <meta property="og:description" content="Software engineer in London. Builds small, sharp developer tools.">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:description" content="Software engineer in London.">
+  <meta property="og:image" content="https://francoismoureau.com/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="François Moureau">
-  <meta name="twitter:description" content="Software engineer in London. Builds small, sharp developer tools.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EEECE4'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='22' fill='%23A8431B' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+  <meta name="twitter:description" content="Software engineer in London.">
+  <meta name="twitter:image" content="https://francoismoureau.com/og.png">
+  <meta name="theme-color" content="#EEECE4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#16140E" media="(prefers-color-scheme: dark)">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EEECE4'/%3E%3Ctext x='16' y='21' font-family='Georgia,serif' font-size='14' fill='%23A8431B' text-anchor='middle' letter-spacing='0.5'%3EFM%3C/text%3E%3C/svg%3E">
   <link rel="preload" href="fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/JetBrainsMono-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
@@ -24,6 +38,7 @@
     "name": "François Moureau",
     "url": "https://francoismoureau.com/",
     "jobTitle": "Software Engineer",
+    "email": "mailto:contact@mail.francoismoureau.com",
     "address": { "@type": "PostalAddress", "addressLocality": "London" },
     "sameAs": [
       "https://github.com/moureauf",
@@ -35,21 +50,15 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="top">
-      <span class="mark">FM · London</span>
-      <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">theme</button>
-    </div>
-
     <header>
       <h1 class="reveal">François Moureau</h1>
-      <p class="tagline reveal">Software engineer. Builds small, sharp tools.</p>
 
       <div class="rule" aria-hidden="true"></div>
 
       <p class="bio">
-        I'm a software engineer working on backend systems at scale. On the side
-        I build the occasional developer tool and write about how I keep my
-        work — and the rest of my life — organised in plain text and git.
+        I'm a software engineer working on backend systems. On the side
+        I build the occasional developer tool and keep my work — and the rest
+        of my life — organised in plain text and git.
       </p>
     </header>
 
@@ -57,9 +66,9 @@
       <h2 class="eyebrow">the short version</h2>
       <dl class="spec">
         <dt>based</dt>    <dd>London</dd>
-        <dt>work</dt>     <dd>Software engineer</dd>
-        <dt>building</dt> <dd><code>boe-mcp</code> + a small family of personal-data MCP servers</dd>
-        <dt>writing</dt>  <dd>coming soon</dd>
+        <dt>work</dt>     <dd>Backend engineering</dd>
+        <dt>building</dt> <dd><code>boe-mcp</code>, an MCP server for Bank of England rate data</dd>
+        <dt>contact</dt>  <dd><a href="mailto:contact@mail.francoismoureau.com">contact@mail.francoismoureau.com</a></dd>
       </dl>
     </section>
 
@@ -67,15 +76,13 @@
       <h2 class="eyebrow">selected work</h2>
 
       <article class="item">
-        <span class="name">boe-mcp <span class="pkg">boe-mcp</span> <span class="status">shipped</span></span>
+        <span class="name">boe-mcp <span class="status">shipped</span></span>
         <p class="desc">A Model Context Protocol server that exposes Bank of England base-rate data to Claude — current rate, change history, and the next MPC date, one <code>npx</code> away.</p>
         <p class="links">
           <a href="https://www.npmjs.com/package/boe-mcp">npm ↗</a>
           <a href="https://github.com/moureauf/boe-mcp">github ↗</a>
         </p>
       </article>
-
-      <p class="more">More MCP servers, and a write-up on running my life on git — coming soon.</p>
     </section>
 
     <footer>
@@ -85,31 +92,14 @@
         <a href="https://www.linkedin.com/in/fmoureau/" rel="me">linkedin</a>
         <a href="https://github.com/moureauf/moureauf.github.io">source</a>
       </nav>
-      <span class="colophon">built plainly · updated Jul 2026</span>
+      <button class="toggle" id="themeToggle" type="button" aria-label="Switch colour theme">theme</button>
     </footer>
   </div>
 
-  <script>
-    (function () {
-      var root = document.documentElement;
-      var btn = document.getElementById('themeToggle');
-      var stored = null;
-      try { stored = localStorage.getItem('theme'); } catch (e) {}
-      if (stored === 'dark' || stored === 'light') root.setAttribute('data-theme', stored);
-      btn.addEventListener('click', function () {
-        var cur = root.getAttribute('data-theme');
-        if (!cur) {
-          cur = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-        var next = cur === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        try { localStorage.setItem('theme', next); } catch (e) {}
-      });
-    })();
-  </script>
+  <script src="/js/theme.js" defer></script>
 
   <!-- Cloudflare Web Analytics -->
-  <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7b00be250eb84901b348309d906452bd"}'></script>
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;7b00be250eb84901b348309d906452bd&quot;}"></script>
   <!-- End Cloudflare Web Analytics -->
 </body>
 </html>

@@ -1,0 +1,37 @@
+name: checks
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  schedule:
+    # weekly, to catch external link rot between pushes
+    - cron: "0 9 * * 1"
+
+jobs:
+  html:
+    name: validate html
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npx --yes htmlhint "**/*.html"
+
+  links:
+    name: check links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          # root-dir resolves root-relative links (/css/..., /js/...) against the repo.
+          # LinkedIn (999) and npm (403) reject non-browser clients, so they can't be checked.
+          args: >-
+            --no-progress
+            --root-dir ${{ github.workspace }}
+            --exclude 'linkedin\.com'
+            --exclude 'npmjs\.com'
+            './**/*.html'
+          fail: true
