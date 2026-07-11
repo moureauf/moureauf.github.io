@@ -26,9 +26,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: lycheeverse/lychee-action@v2
         with:
-          # LinkedIn returns 999 to any non-browser client, so it can't be checked.
+          # root-dir resolves root-relative links (/css/..., /js/...) against the repo.
+          # LinkedIn (999) and npm (403) reject non-browser clients, so they can't be checked.
           args: >-
             --no-progress
+            --root-dir ${{ github.workspace }}
             --exclude 'linkedin\.com'
+            --exclude 'npmjs\.com'
             './**/*.html'
           fail: true
