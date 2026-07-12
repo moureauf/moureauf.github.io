@@ -46,15 +46,15 @@
     <article class="prose">
       <p>For about a year now, most of my life admin has lived in a git repository. Not my code — my life. Financial decisions, training plans, career notes, the paperwork that accumulates around a household, side project ideas that will mostly never happen. It started as a folder of markdown files and slowly turned into something closer to an operations repo: a linter, CI checks, scheduled jobs, and an AI agent that knows its way around.</p>
 
-      <p>This post is about why that setup works, the design decisions behind it, and what changes when you point a coding agent like Claude Code at a repo that contains no code.</p>
+      <p>This post is about why that setup works, the design decisions behind it, and what changes when you point a coding agent like <a href="https://claude.com/claude-code">Claude Code</a> at a repo that contains no code.</p>
 
       <h2>why plain text, why git</h2>
 
       <p>The case for plain text is old and still correct. Markdown files will outlive every app you currently use. They diff, they grep, they sync anywhere, and there's no export button to worry about because there's nothing to export from.</p>
 
-      <p>Git adds the part note-taking apps never get right: history with intent. A sync service tells you a file changed; a commit tells you why. When you're tracking decisions that play out over months (fix the rate or not, which platform, is this side project worth the evenings), being able to see what you knew and thought at the time is genuinely useful. Six months on, you won't remember the reasoning. The commit does.</p>
+      <p>Git adds the part note-taking apps never get right: history with intent. A sync service tells you a file changed; a commit tells you why. When you're tracking decisions that play out over months (fix the rate or not, is this side project worth the evenings), being able to see what you knew and thought at the time is genuinely useful. Six months on, you won't remember the reasoning. The commit does.</p>
 
-      <p>There's also a practical benefit: git gives you multi-device sync for free. Every device is just a clone pushing to the same remote.</p>
+      <p>There's also a practical benefit: git gives you multi-device sync for free. Every device is just a clone pushing to the same remote — no proprietary sync service, and when two devices disagree you get a merge conflict, which you already know how to deal with.</p>
 
       <figure class="diagram" role="img" aria-label="Diagram: GitHub acts as the hub. A laptop running an editor and an agent, a phone running Obsidian with git, and a cloud agent session each push to and pull from it.">
 <pre><code>                  ┌───────────────┐
@@ -71,13 +71,11 @@
 └───────────────┘ └───────────────┘ └───────────────┘</code></pre>
       </figure>
 
-      <p>No proprietary sync service, no conflict pop-ups from an app that doesn't understand merging. When two devices disagree you get a merge conflict, and you already know how to deal with those.</p>
-
-      <p>And then the reason that didn't exist when I started: a repo is the native habitat of AI coding tools. They already know how to read a tree of files, search it, edit it and commit. They don't care that the files describe an insurance renewal rather than a service.</p>
+      <p>And then the reason I didn't see coming: a repo is the native habitat of AI coding tools. They already know how to read a tree of files, search it, edit it and commit. They don't care that the files describe an insurance renewal rather than a service.</p>
 
       <h2>the shape of the thing</h2>
 
-      <p>There's a whole cottage industry around personal knowledge management (PKM). Zettelkasten, PARA, digital gardens, endless videos about linking your thinking. I read a fair amount of it and ended up ignoring most of it.</p>
+      <p>There's a whole cottage industry around personal knowledge management (PKM). <a href="https://zettelkasten.de/introduction/">Zettelkasten</a>, <a href="https://fortelabs.com/blog/para/">PARA</a>, digital gardens, endless videos about linking your thinking. I read a fair amount of it and ended up ignoring most of it.</p>
 
       <p>The structure that survived contact with real life is boring: top-level folders named after areas of life.</p>
 
@@ -104,7 +102,9 @@
 
       <p><strong>What stays out of git.</strong> Bank statements, signed contracts and anything with account numbers are gitignored. What makes this workable is committing <em>derived</em> data instead: a categorised spending summary is useful and safe to track; the raw statement it came from is neither. The repo should know your patterns, not your account numbers.</p>
 
-      <p><strong>The editing surface.</strong> I use Obsidian on top of the repo, mainly for mobile access and wiki-links. But it's a view, not a dependency. Everything works from a terminal, which matters more than I expected.</p>
+      <p><strong>Where the trust line sits.</strong> Be honest about what this setup is: a private repo on someone else's servers, read by a model provider every time an agent session runs. No amount of gitignore changes that. I decided the patterns and the reasoning are a trade I'll make for the leverage — they're roughly as sensitive as what already sits in my email — and the credentials and raw documents are not, which is exactly the line the gitignore enforces. Yours may sit somewhere else. The only bad version is the one where you never noticed you were making the decision.</p>
+
+      <p><strong>The editing surface.</strong> I use <a href="https://obsidian.md/">Obsidian</a> on top of the repo, mainly for mobile access and wiki-links. But it's a view, not a dependency. Everything works from a terminal, which matters more than I expected.</p>
 
       <h2>the interesting part</h2>
 
